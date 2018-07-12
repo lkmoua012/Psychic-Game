@@ -35,7 +35,7 @@ function refresh(){
     document.getElementById("compGuess").innerHTML = compOldguess;
 
     // For debugging purposes only
-   // document.getElementById("godMode").innerHTML = compGuess;
+    // document.getElementById("godMode").innerHTML = compGuess;
 
 }
 
@@ -49,14 +49,10 @@ document.onkeypress = function(e){
         return false;
     }
 
-    // Skeleton is done. However, the script still grabs special characters and duplicate letters.
-    // That script should go here.
-
     userGuess = event.key;
-    document.getElementById("userGuess").innerHTML = event.key;
     document.getElementById("bank").innerHTML = bank;
 
-    if (userGuess == compGuess && userGuess!== " "){
+    if (userGuess === compGuess && userGuess!== " "){
 
         wins++;
 
@@ -70,8 +66,13 @@ document.onkeypress = function(e){
 
         refresh();
 
-    } else if (userGuess !== " ") {
+    } else if (userGuess == " " || e.which < 97) {
 
+        e.preventDefault();
+        return;
+
+    } else if (e.which >= 97 && e.which <=122) { 
+        
         type.play();
 
         guess--;
@@ -93,5 +94,7 @@ document.onkeypress = function(e){
         refresh();
 
     }
+
+    document.getElementById("userGuess").innerHTML = event.key;
 
 };
