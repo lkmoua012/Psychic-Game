@@ -34,6 +34,8 @@ function refresh(){
 
     document.getElementById("compGuess").innerHTML = compOldguess;
 
+    document.getElementById("bank").innerHTML = bank;
+
     // For debugging purposes only
     // document.getElementById("godMode").innerHTML = compGuess;
 
@@ -51,6 +53,7 @@ document.onkeypress = function(e){
 
     userGuess = event.key;
     document.getElementById("bank").innerHTML = bank;
+    document.getElementById("userGuess").innerHTML = event.key;
 
     if (userGuess === compGuess && userGuess!== " "){
 
@@ -66,7 +69,7 @@ document.onkeypress = function(e){
 
         refresh();
 
-    } else if (userGuess == " " || e.which < 97) {
+    } else if (userGuess == " " || e.which < 97 || bank.indexOf(userGuess) > -1) {
 
         e.preventDefault();
         return;
@@ -81,6 +84,8 @@ document.onkeypress = function(e){
 
         document.getElementById("attempts").innerHTML = guess;
 
+        document.getElementById("bank").innerHTML = bank;
+
     };
 
     if (guess <= 0){
@@ -89,12 +94,14 @@ document.onkeypress = function(e){
 
         losses++;
 
-        document.getElementById("msg1").innerHTML = "You lost, try again!";
+        compOldguess = compGuess;
+
+        document.getElementById("msg1").innerHTML = "You lost, try again! The letter was " + compOldguess + ".";
+
+        document.getElementById("userGuess").innerHTML = "";
 
         refresh();
 
     }
-
-    document.getElementById("userGuess").innerHTML = event.key;
 
 };
